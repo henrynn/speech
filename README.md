@@ -1,17 +1,33 @@
 # speech
 
-这个仓库汇总了多个语音与会议智能相关项目，覆盖实时语音助手、会议总结，以及基础语音识别实验。各项目可以独立查看与演示，但运行方式和环境要求各不相同。
+这个仓库汇总了多个语音与会议智能相关项目，覆盖浏览器实时语音助手、Windows 本地 Voice Live 助手、会议总结，以及基础语音识别实验。各项目可以独立运行，但目标场景、依赖环境和接入方式并不相同。
 
 ## 项目概览
 
-| 项目 | 简介 | 链接 |
-| --- | --- | --- |
-| Voice_Agent_Realtime | 基于 Azure OpenAI / Azure AI Foundry Realtime API 的浏览器语音助手，支持 WebRTC 实时语音、多工具调用、中文交互界面。 | [Voice_Agent_Realtime](./Voice_Agent_Realtime/) |
-| Voice_Agent_VoiceLive | 基于 Azure Voice Live 的 Windows 本地语音助手，包含浏览器控制台、本地设备控制、摄像头理解和中文语音指令联动。 | [Voice_Agent_VoiceLive](./Voice_Agent_VoiceLive/) |
-| meeting_summary | 基于 Streamlit 的会议助手，集成 Azure Speech Fast Transcription 与 GPT 分析能力，用于会议转录、图像分析和内容总结。 | [meeting_summary](./meeting_summary/) |
-| speech_to_text | 基于 Azure Speech SDK 的语音识别与文本队列实验代码，包含连续识别、增量文本拼接和翻译处理逻辑。 | [speech_to_text](./speech_to_text/) |
+| 项目 | 适用场景 | 关键特点 | 链接 |
+| --- | --- | --- | --- |
+| Voice_Agent_VoiceLive | Windows 本机语音助手与设备控制 | Azure Voice Live、本地 Python 控制层、摄像头分析、天气新闻查询、桌面动作触发 | [Voice_Agent_VoiceLive](./Voice_Agent_VoiceLive/) |
+| Voice_Agent_Realtime | 浏览器端实时语音 Agent | Azure OpenAI / Azure AI Foundry Realtime API、WebRTC、多工具调用、中文交互界面 | [Voice_Agent_Realtime](./Voice_Agent_Realtime/) |
+| meeting_summary | 会议转录与内容总结 | Streamlit、Azure Speech Fast Transcription、图像与文本分析 | [meeting_summary](./meeting_summary/) |
+| speech_to_text | 底层语音识别实验 | Azure Speech SDK、连续识别、partial/final 文本拼接与翻译验证 | [speech_to_text](./speech_to_text/) |
+
+## 如何选择
+
+- 如果你要的是 Windows 本机上的语音助手，能够直接控制音量、触发桌面动作、结合摄像头画面理解，请看 [Voice_Agent_VoiceLive](./Voice_Agent_VoiceLive/)。
+- 如果你要的是浏览器里的实时语音 Agent，更关注 WebRTC 会话、多工具调用和纯 Web 交互，请看 [Voice_Agent_Realtime](./Voice_Agent_Realtime/)。
+- 如果你要做会议录音转写、纪要整理和多模态分析，请看 [meeting_summary](./meeting_summary/)。
+- 如果你要验证更底层的 Azure Speech SDK 识别流程，请看 [speech_to_text](./speech_to_text/)。
 
 ## 项目详情
+
+## Voice_Agent_VoiceLive
+
+- 最新加入的 Windows 本地语音助手项目，界面名称为 Nebula PC Assistant。
+- 浏览器控制台负责展示实时对话、状态、摄像头预览和桌面动作入口。
+- Node.js 负责静态页面、本地 API 和事件桥接，Python 负责音量控制、Windows 动作执行，以及多帧摄像头分析。
+- 适合需要 Azure Voice Live 中文语音交互和本机设备联动的场景。
+
+项目入口： [Voice_Agent_VoiceLive](./Voice_Agent_VoiceLive/)
 
 ## Voice_Agent_Realtime
 
@@ -20,14 +36,6 @@
 - 内置天气、AI 新闻、游戏攻略三个工具示例。
 
 项目入口： [Voice_Agent_Realtime](./Voice_Agent_Realtime/)
-
-## Voice_Agent_VoiceLive
-
-- 适合需要在 Windows 本机上用 Azure Voice Live 驱动语音助手和设备控制的场景。
-- 浏览器控制台负责会话展示、摄像头预览和桌面动作入口，Node.js 服务负责本地 API 编排。
-- Python 侧负责音量控制、Windows 动作执行，以及结合最近三帧画面做摄像头理解。
-
-项目入口： [Voice_Agent_VoiceLive](./Voice_Agent_VoiceLive/)
 
 ## meeting_summary
 
@@ -47,7 +55,7 @@
 
 ## GitHub 快速链接
 
-- [Voice_Agent_Realtime](https://github.com/henrynn/speech/tree/master/Voice_Agent_Realtime)
 - [Voice_Agent_VoiceLive](https://github.com/henrynn/speech/tree/master/Voice_Agent_VoiceLive)
+- [Voice_Agent_Realtime](https://github.com/henrynn/speech/tree/master/Voice_Agent_Realtime)
 - [meeting_summary](https://github.com/henrynn/speech/tree/master/meeting_summary)
 - [speech_to_text](https://github.com/henrynn/speech/tree/master/speech_to_text)

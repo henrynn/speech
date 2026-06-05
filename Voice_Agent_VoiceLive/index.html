@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nebula PC Assistant</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&family=Exo+2:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="bg-grid" aria-hidden="true"></div>
+    <main class="app-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">VOICE LIVE CONSOLE</p>
+          <h1>Nebula PC Assistant</h1>
+          <p class="topbar-copy">A direct conversation view backed by the local Python Azure Voice Live assistant.</p>
+        </div>
+        <div class="topbar-actions">
+          <button id="debug-toggle-btn" class="btn ghost debug-toggle" type="button" aria-expanded="false">Debug</button>
+          <span id="status-chip" class="status-chip idle">Idle</span>
+        </div>
+      </header>
+
+      <section class="workspace-grid">
+        <article class="panel conversation-panel">
+          <div class="panel-head conversation-head">
+            <div>
+              <h2>Conversation</h2>
+              <p class="muted">User and Azure Voice Live messages appear here in real time.</p>
+            </div>
+            <div class="live-indicator">
+              <span class="live-dot"></span>
+              <span>Live session</span>
+            </div>
+          </div>
+          <div id="conversation-stream" class="conversation-stream" aria-live="polite"></div>
+        </article>
+
+        <aside class="side-panel">
+          <article class="panel hero-panel">
+            <div class="holo-frame">
+              <div id="avatar" class="avatar-core" aria-hidden="true"></div>
+            </div>
+            <p id="assistant-state" class="assistant-state" aria-live="polite">Azure Voice Live is idle. Start a local session to use the Python assistant.</p>
+            <div class="status-metrics">
+              <div>
+                <span class="metric-label">Input mode</span>
+                <strong id="voice-mode">Manual controls</strong>
+              </div>
+              <div>
+                <span class="metric-label">System health</span>
+                <strong id="system-health">Connected</strong>
+              </div>
+            </div>
+          </article>
+
+          <article class="panel control-panel">
+            <div class="panel-head">
+              <div>
+                <h2>Controls</h2>
+                <p class="muted">Start or stop the local Azure Voice Live session and trigger visible Windows desktop actions.</p>
+              </div>
+              <button id="refresh-btn" class="btn ghost" type="button">Refresh</button>
+            </div>
+            <div class="button-row">
+              <button id="listen-btn" class="btn primary" type="button">Start Listening</button>
+              <button id="stop-btn" class="btn ghost" type="button">Stop</button>
+            </div>
+            <div class="meter-wrap" aria-hidden="true">
+              <div id="voice-meter" class="voice-meter"></div>
+            </div>
+            <div class="info-block">
+              <span class="metric-label">Live transcript</span>
+              <p id="transcript" class="transcript">Click Start Listening to launch the local Python Voice Live assistant.</p>
+            </div>
+            <div class="info-block camera-block">
+              <div class="camera-block-head">
+                <span class="metric-label">Camera Vision</span>
+                <span id="camera-status" class="camera-status">Camera idle</span>
+              </div>
+              <div class="camera-preview-shell">
+                <video id="camera-preview" class="camera-preview" autoplay playsinline muted></video>
+                <div id="camera-empty-state" class="camera-empty-state">Start Camera to preview the live feed.</div>
+              </div>
+              <canvas id="camera-canvas" class="camera-canvas" aria-hidden="true"></canvas>
+              <div class="button-row camera-actions-row">
+                <button id="camera-start-btn" class="btn action-btn" type="button">Start Camera</button>
+                <button id="camera-stop-btn" class="btn ghost action-btn" type="button">Stop Camera</button>
+                <button id="camera-analyze-btn" class="btn primary action-btn" type="button">Analyze Frame</button>
+              </div>
+              <div class="camera-observe-row">
+                <label class="camera-observe-label" for="camera-observe-interval">
+                  Observe every
+                </label>
+                <select id="camera-observe-interval" class="camera-observe-interval">
+                  <option value="3">3s</option>
+                  <option value="5" selected>5s</option>
+                  <option value="8">8s</option>
+                  <option value="12">12s</option>
+                </select>
+                <button id="camera-observe-btn" class="btn action-btn" type="button">Start Observe</button>
+              </div>
+              <p id="camera-analysis" class="camera-analysis">Capture a frame and the assistant will describe what the camera currently sees.</p>
+            </div>
+            <div id="quick-actions-block" class="info-block quick-actions-block is-collapsed">
+              <button id="quick-actions-toggle" class="quick-actions-toggle" type="button" aria-expanded="false" aria-controls="quick-actions-grid">
+                <span class="metric-label quick-actions-label">Quick Windows Actions</span>
+                <span class="quick-actions-chevron" aria-hidden="true">+</span>
+              </button>
+              <div id="quick-actions-grid" class="quick-actions-grid" hidden>
+                <button class="btn action-btn" type="button" data-windows-action="open_calculator">Calculator</button>
+                <button class="btn action-btn" type="button" data-windows-action="open_notepad">Notepad</button>
+                <button class="btn action-btn" type="button" data-windows-action="open_explorer">Explorer</button>
+                <button class="btn action-btn" type="button" data-windows-action="open_settings">Settings</button>
+                <button class="btn action-btn" type="button" data-windows-action="show_desktop">Show Desktop</button>
+              </div>
+            </div>
+          </article>
+
+          <article id="diagnostics-panel" class="panel diagnostics-panel is-hidden">
+            <div class="panel-head">
+              <div>
+                <h2>Diagnostics</h2>
+                <p class="muted">Recent Azure Voice Live events, Python logs, and API activity.</p>
+              </div>
+            </div>
+            <ul id="log-list" class="log-list" aria-live="polite"></ul>
+          </article>
+        </aside>
+      </section>
+    </main>
+
+    <script type="module" src="src/main.js"></script>
+  </body>
+</html>

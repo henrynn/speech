@@ -7,6 +7,7 @@
 | 项目 | 简介 | 链接 |
 | --- | --- | --- |
 | Voice_Agent_Realtime | 基于 Azure OpenAI / Azure AI Foundry Realtime API 的浏览器语音助手，支持 WebRTC 实时语音、多工具调用、中文交互界面。 | [Voice_Agent_Realtime](./Voice_Agent_Realtime/) |
+| Voice_Agent_VoiceLive | 基于 Azure Voice Live 的 Windows 本地语音助手，包含浏览器控制台、本地设备控制、摄像头理解和中文语音指令联动。 | [Voice_Agent_VoiceLive](./Voice_Agent_VoiceLive/) |
 | meeting_summary | 基于 Streamlit 的会议助手，集成 Azure Speech Fast Transcription 与 GPT 分析能力，用于会议转录、图像分析和内容总结。 | [meeting_summary](./meeting_summary/) |
 | speech_to_text | 基于 Azure Speech SDK 的语音识别与文本队列实验代码，包含连续识别、增量文本拼接和翻译处理逻辑。 | [speech_to_text](./speech_to_text/) |
 
@@ -19,6 +20,14 @@
 - 内置天气、AI 新闻、游戏攻略三个工具示例。
 
 项目入口： [Voice_Agent_Realtime](./Voice_Agent_Realtime/)
+
+## Voice_Agent_VoiceLive
+
+- 适合需要在 Windows 本机上用 Azure Voice Live 驱动语音助手和设备控制的场景。
+- 浏览器控制台负责会话展示、摄像头预览和桌面动作入口，Node.js 服务负责本地 API 编排。
+- Python 侧负责音量控制、Windows 动作执行，以及结合最近三帧画面做摄像头理解。
+
+项目入口： [Voice_Agent_VoiceLive](./Voice_Agent_VoiceLive/)
 
 ## meeting_summary
 
@@ -39,5 +48,6 @@
 ## GitHub 快速链接
 
 - [Voice_Agent_Realtime](https://github.com/henrynn/speech/tree/master/Voice_Agent_Realtime)
+- [Voice_Agent_VoiceLive](https://github.com/henrynn/speech/tree/master/Voice_Agent_VoiceLive)
 - [meeting_summary](https://github.com/henrynn/speech/tree/master/meeting_summary)
 - [speech_to_text](https://github.com/henrynn/speech/tree/master/speech_to_text)

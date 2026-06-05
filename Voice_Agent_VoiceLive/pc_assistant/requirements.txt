@@ -1,0 +1,6 @@
+﻿azure-ai-voicelive[aiohttp]>=1.1.0
+azure-identity>=1.17.0
+python-dotenv>=1.0.1
+
+pycaw>=20240210
+comtypes>=1.4.0

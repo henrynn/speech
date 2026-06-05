@@ -1,0 +1,8 @@
+node_modules/
+.env
+server_out.txt
+service_stdout.log
+service_stderr.log
+pc_assistant/.env
+pc_assistant/.venv/
+pc_assistant/**/__pycache__/

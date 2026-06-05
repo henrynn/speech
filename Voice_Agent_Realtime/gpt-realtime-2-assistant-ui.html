@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Voice_Agent_Realtime UI Prototype</title>
+  <style>
+    :root {
+      --bg: #0b1220;
+      --panel: #111827;
+      --panel-2: #172033;
+      --line: #243047;
+      --text: #e5eefc;
+      --muted: #94a3b8;
+      --brand: #3b82f6;
+      --brand-2: #22c55e;
+      --accent: #8b5cf6;
+      --warn: #f59e0b;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: radial-gradient(circle at top, #12203b, var(--bg) 48%);
+      color: var(--text);
+    }
+    .app {
+      display: grid;
+      grid-template-columns: 260px 1fr 360px;
+      grid-template-rows: 72px 1fr 96px;
+      height: 100vh;
+      gap: 16px;
+      padding: 16px;
+    }
+    .topbar, .sidebar, .main, .rightbar, .composer {
+      background: rgba(17, 24, 39, 0.92);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      backdrop-filter: blur(14px);
+      box-shadow: 0 18px 50px rgba(0, 0, 0, 0.25);
+    }
+    .topbar {
+      grid-column: 1 / 4;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 700;
+      font-size: 20px;
+    }
+    .logo {
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--brand), var(--accent));
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+    }
+    .status {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .chip {
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: #0f172a;
+      border: 1px solid var(--line);
+    }
+    .sidebar, .rightbar {
+      padding: 18px;
+      overflow: auto;
+    }
+    .main {
+      padding: 18px;
+      overflow: auto;
+    }
+    .section-title {
+      font-size: 12px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 12px;
+    }
+    .nav-item, .session-item {
+      padding: 12px 14px;
+      border-radius: 14px;
+      border: 1px solid transparent;
+      background: transparent;
+      margin-bottom: 10px;
+      color: var(--text);
+    }
+    .nav-item.active, .session-item.active {
+      background: linear-gradient(180deg, #17233a, #131c2d);
+      border-color: var(--line);
+    }
+    .session-item small {
+      display: block;
+      margin-top: 4px;
+      color: var(--muted);
+    }
+    .hero {
+      padding: 20px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, rgba(59,130,246,.2), rgba(139,92,246,.16));
+      border: 1px solid rgba(96,165,250,.2);
+      margin-bottom: 18px;
+    }
+    .hero h1 {
+      margin: 0 0 8px 0;
+      font-size: 28px;
+    }
+    .hero p {
+      margin: 0;
+      color: #cbd5e1;
+      line-height: 1.6;
+    }
+    .messages {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .msg {
+      max-width: 82%;
+      padding: 14px 16px;
+      border-radius: 16px;
+      line-height: 1.65;
+      border: 1px solid var(--line);
+    }
+    .msg.user {
+      align-self: flex-end;
+      background: #173054;
+    }
+    .msg.ai {
+      align-self: flex-start;
+      background: #121a2b;
+    }
+    .cards {
+      display: grid;
+      gap: 14px;
+    }
+    .card {
+      padding: 16px;
+      border-radius: 16px;
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, #141d2f, #101827);
+    }
+    .card h3 {
+      margin: 0 0 10px 0;
+      font-size: 16px;
+    }
+    .meta {
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 10px;
+    }
+    .pill-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+    .pill {
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: #0f172a;
+      border: 1px solid var(--line);
+      color: #cbd5e1;
+      font-size: 12px;
+    }
+    .composer {
+      grid-column: 2 / 4;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 18px;
+    }
+    .mic {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      border: none;
+      background: linear-gradient(135deg, var(--brand), var(--accent));
+      color: white;
+      font-size: 22px;
+      cursor: pointer;
+      box-shadow: 0 10px 30px rgba(59,130,246,.35);
+    }
+    .wave {
+      flex: 0 0 120px;
+      height: 44px;
+      border-radius: 12px;
+      background:
+        linear-gradient(90deg,
+          transparent 0 4%,
+          rgba(59,130,246,.9) 4% 8%,
+          transparent 8% 12%,
+          rgba(139,92,246,.8) 12% 16%,
+          transparent 16% 20%,
+          rgba(34,197,94,.8) 20% 24%,
+          transparent 24% 28%,
+          rgba(245,158,11,.75) 28% 32%,
+          transparent 32% 36%,
+          rgba(59,130,246,.9) 36% 40%,
+          transparent 40% 44%,
+          rgba(139,92,246,.8) 44% 48%,
+          transparent 48% 52%,
+          rgba(34,197,94,.8) 52% 56%,
+          transparent 56% 60%,
+          rgba(245,158,11,.75) 60% 64%,
+          transparent 64% 68%,
+          rgba(59,130,246,.9) 68% 72%,
+          transparent 72% 76%,
+          rgba(139,92,246,.8) 76% 80%,
+          transparent 80% 100%);
+      border: 1px solid var(--line);
+    }
+    .input {
+      flex: 1;
+      height: 56px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: #0f172a;
+      color: var(--text);
+      padding: 0 16px;
+      outline: none;
+      font-size: 15px;
+    }
+    .send {
+      height: 56px;
+      padding: 0 20px;
+      border: none;
+      border-radius: 14px;
+      background: var(--brand-2);
+      color: white;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .subtle {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+    @media (max-width: 1200px) {
+      .app {
+        grid-template-columns: 220px 1fr;
+        grid-template-rows: 72px 1fr 320px 96px;
+      }
+      .rightbar {
+        grid-column: 1 / 3;
+      }
+      .composer {
+        grid-column: 1 / 3;
+      }
+    }
+    @media (max-width: 860px) {
+      .app {
+        grid-template-columns: 1fr;
+        grid-template-rows: 72px auto 1fr auto 96px;
+      }
+      .topbar, .sidebar, .main, .rightbar, .composer {
+        grid-column: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand">
+        <div class="logo">AI</div>
+        <div>Voice_Agent_Realtime</div>
+      </div>
+      <div class="status">
+        <div class="chip">Model: GPT Realtime 2.0</div>
+        <div class="chip">Region: East US 2</div>
+        <div class="chip">Latency: 142 ms</div>
+        <div class="chip">Connected</div>
+      </div>
+    </header>
+
+    <aside class="sidebar">
+      <div class="section-title">Workspace</div>
+      <div class="nav-item active">Assistant Console</div>
+      <div class="nav-item">Weather</div>
+      <div class="nav-item">News</div>
+      <div class="nav-item">Game Guides</div>
+      <div class="nav-item">Favorites</div>
+
+      <div class="section-title" style="margin-top: 22px;">Recent Sessions</div>
+      <div class="session-item active">
+        今日资讯与天气
+        <small>22:15 · 语音会话</small>
+      </div>
+      <div class="session-item">
+        星穹铁道配队建议
+        <small>21:42 · 攻略检索</small>
+      </div>
+      <div class="session-item">
+        科技新闻摘要
+        <small>20:51 · 新闻播报</small>
+      </div>
+    </aside>
+
+    <main class="main">
+      <section class="hero">
+        <h1>Low-latency Voice Assistant</h1>
+        <p>基于 GPT Realtime 2.0 的实时智能助手，支持天气、新闻与游戏攻略查询，适合部署在 Azure 并扩展为专业产品界面。</p>
+      </section>
+
+      <section class="messages">
+        <div class="msg user">帮我看看今天北京天气，然后顺便给我三条科技新闻，再查一下《原神》芙宁娜配队攻略。</div>
+        <div class="msg ai">已为你并行查询天气、科技新闻和游戏攻略。天气会以摘要卡片展示，新闻会附上来源，攻略会给出配队建议和关键说明。</div>
+      </section>
+    </main>
+
+    <aside class="rightbar">
+      <div class="section-title">Live Results</div>
+      <div class="cards">
+        <div class="card">
+          <h3>北京天气</h3>
+          <div class="meta">今天 · 多云转晴 · 24°C</div>
+          <div>体感 22°C，晚间略凉，降雨概率较低，适合通勤出行。</div>
+          <div class="pill-row">
+            <span class="pill">AQI 良</span>
+            <span class="pill">湿度 46%</span>
+            <span class="pill">风速 12 km/h</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>科技新闻</h3>
+          <div class="meta">Top 3 · 近 6 小时</div>
+          <div>1. Azure AI 新模型与实时语音场景持续扩展。</div>
+          <div>2. AI 代理与工具调用成为企业应用重点方向。</div>
+          <div>3. 端云协同设备在智能硬件场景加速落地。</div>
+          <div class="pill-row">
+            <span class="pill">Source: Tech Feed</span>
+            <span class="pill">3 Articles</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>《原神》芙宁娜配队攻略</h3>
+          <div class="meta">检索摘要 · 4 个来源</div>
+          <div>推荐思路：以生命值收益和队伍整体掉血/回血循环为核心，优先搭配具备全队治疗或高频回复能力的角色。</div>
+          <div class="pill-row">
+            <span class="pill">双水体系</span>
+            <span class="pill">治疗必备</span>
+            <span class="pill">来源已引用</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>System Status</h3>
+          <div class="subtle">
+            Realtime Session 已连接。<br />
+            Tool Calling 已启用。<br />
+            Azure Container Apps 状态正常。<br />
+            Search & Cache 命中率 86%。
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <footer class="composer">
+      <button class="mic" aria-label="Start voice">🎙</button>
+      <div class="wave" aria-hidden="true"></div>
+      <input class="input" value="试试：帮我播报今天上海天气，并查三条游戏新闻" />
+      <button class="send">发送</button>
+    </footer>
+  </div>
+</body>
+</html>

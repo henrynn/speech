@@ -1,0 +1,366 @@
+:root {
+  --bg: #07101d;
+  --panel: rgba(14, 22, 36, 0.94);
+  --panel-2: #10192b;
+  --line: #22324d;
+  --line-soft: rgba(34, 50, 77, 0.45);
+  --text: #e8f0ff;
+  --muted: #96a9c6;
+  --brand: #3b82f6;
+  --brand-2: #22c55e;
+  --accent: #8b5cf6;
+  --danger: #ef4444;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", Arial, sans-serif;
+  color: var(--text);
+  background: radial-gradient(circle at top, #132541 0, var(--bg) 42%);
+}
+
+button,
+input {
+  font: inherit;
+}
+
+.app {
+  display: grid;
+  grid-template-columns: 260px 1fr 360px;
+  grid-template-rows: 76px 1fr 96px;
+  gap: 16px;
+  min-height: 100vh;
+  padding: 16px;
+}
+
+.topbar,
+.sidebar,
+.main,
+.rightbar,
+.composer {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  backdrop-filter: blur(18px);
+  box-shadow: 0 18px 56px rgba(0, 0, 0, 0.32);
+}
+
+.topbar {
+  grid-column: 1 / 4;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo {
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--brand), var(--accent));
+}
+
+.brand-title {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.brand-subtitle {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.status {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.chip {
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: #0d1627;
+  border: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.sidebar,
+.rightbar,
+.main {
+  overflow: auto;
+  padding: 18px;
+}
+
+.section-title,
+.panel-title {
+  color: var(--muted);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.space-top {
+  margin-top: 22px;
+}
+
+.nav-item,
+.action-btn {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: 1px solid transparent;
+  background: #0e1728;
+  color: var(--text);
+  cursor: pointer;
+  text-align: left;
+}
+
+.nav-item.active,
+.nav-item:hover,
+.action-btn:hover {
+  border-color: var(--line);
+  background: linear-gradient(180deg, #17253c, #121a2c);
+}
+
+.action-btn.primary {
+  background: linear-gradient(135deg, var(--brand), #2563eb);
+}
+
+.action-btn.secondary {
+  background: linear-gradient(135deg, #334155, #1f2937);
+}
+
+.action-btn.tertiary {
+  background: linear-gradient(135deg, var(--brand-2), #16a34a);
+}
+
+.sidebar-help {
+  color: var(--muted);
+  line-height: 1.6;
+  font-size: 13px;
+}
+
+.hero {
+  padding: 20px;
+  border-radius: 18px;
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(139, 92, 246, 0.15));
+  border: 1px solid rgba(96, 165, 250, 0.24);
+  margin-bottom: 16px;
+}
+
+.hero h1 {
+  margin: 0 0 8px 0;
+  font-size: 28px;
+}
+
+.hero p {
+  margin: 0;
+  color: #d3ddf0;
+  line-height: 1.65;
+}
+
+.messages {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.msg {
+  max-width: 84%;
+  padding: 14px 16px;
+  border-radius: 16px;
+  border: 1px solid var(--line-soft);
+  background: #11192b;
+}
+
+.msg.user {
+  align-self: flex-end;
+  background: #173053;
+}
+
+.msg.assistant {
+  align-self: flex-start;
+}
+
+.msg.system {
+  align-self: center;
+  max-width: 96%;
+  background: #0d1627;
+}
+
+.msg-role {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+
+.msg-body {
+  white-space: pre-wrap;
+  line-height: 1.65;
+}
+
+.cards {
+  display: grid;
+  gap: 14px;
+}
+
+.card {
+  padding: 16px;
+  border-radius: 16px;
+  border: 1px solid var(--line);
+  background: linear-gradient(180deg, #131c2d, #0d1524);
+}
+
+.card-title {
+  margin: 0 0 8px 0;
+}
+
+.meta {
+  color: var(--muted);
+  font-size: 13px;
+  margin-bottom: 10px;
+}
+
+.card-body {
+  line-height: 1.6;
+  color: #dbe5f4;
+}
+
+.event-log {
+  min-height: 220px;
+  max-height: 340px;
+  overflow: auto;
+  padding: 12px;
+  border-radius: 14px;
+  border: 1px solid var(--line);
+  background: #08111f;
+  color: #b9c6da;
+  font-size: 12px;
+  line-height: 1.5;
+  white-space: pre-wrap;
+}
+
+.composer {
+  grid-column: 2 / 4;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 18px;
+}
+
+.wave {
+  width: 120px;
+  height: 48px;
+  border-radius: 14px;
+  border: 1px solid var(--line);
+  background:
+    linear-gradient(90deg,
+      transparent 0 5%,
+      rgba(59, 130, 246, .95) 5% 9%,
+      transparent 9% 14%,
+      rgba(139, 92, 246, .85) 14% 18%,
+      transparent 18% 23%,
+      rgba(34, 197, 94, .85) 23% 27%,
+      transparent 27% 32%,
+      rgba(59, 130, 246, .95) 32% 36%,
+      transparent 36% 41%,
+      rgba(245, 158, 11, .82) 41% 45%,
+      transparent 45% 50%,
+      rgba(139, 92, 246, .85) 50% 54%,
+      transparent 54% 59%,
+      rgba(34, 197, 94, .85) 59% 63%,
+      transparent 63% 68%,
+      rgba(59, 130, 246, .95) 68% 72%,
+      transparent 72% 100%);
+  opacity: 0.5;
+  transition: opacity 0.2s ease;
+}
+
+.wave.active {
+  opacity: 1;
+}
+
+.input {
+  flex: 1;
+  height: 56px;
+  padding: 0 16px;
+  border-radius: 14px;
+  border: 1px solid var(--line);
+  background: #0d1627;
+  color: var(--text);
+  outline: none;
+}
+
+.send {
+  height: 56px;
+  padding: 0 22px;
+  border: none;
+  border-radius: 14px;
+  color: white;
+  background: linear-gradient(135deg, var(--brand-2), #16a34a);
+  cursor: pointer;
+  font-weight: 700;
+}
+
+ul {
+  padding-left: 18px;
+  margin: 8px 0 0;
+}
+
+a {
+  color: #93c5fd;
+}
+
+@media (max-width: 1200px) {
+  .app {
+    grid-template-columns: 220px 1fr;
+    grid-template-rows: 76px 1fr auto 96px;
+  }
+
+  .topbar {
+    grid-column: 1 / 3;
+  }
+
+  .rightbar,
+  .composer {
+    grid-column: 1 / 3;
+  }
+}
+
+@media (max-width: 900px) {
+  .app {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto 1fr auto auto;
+  }
+
+  .topbar,
+  .sidebar,
+  .main,
+  .rightbar,
+  .composer {
+    grid-column: 1;
+  }
+
+  .status {
+    justify-content: flex-start;
+  }
+}

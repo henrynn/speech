@@ -1,0 +1,18 @@
+{
+  "name": "voice_agent_realtime",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node server.js",
+    "start": "node server.js",
+    "stop": "node scripts/stop-dev.js"
+  },
+  "dependencies": {
+    "@azure/identity": "^4.13.0",
+    "cheerio": "^1.1.2",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "rss-parser": "^3.13.0"
+  }
+}

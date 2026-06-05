@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Voice_Agent_Realtime</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand">
+        <div class="logo">AI</div>
+        <div>
+          <div class="brand-title" id="app-title">Voice_Agent_Realtime</div>
+          <div class="brand-subtitle">GPT Realtime 2.0 + Azure OpenAI</div>
+        </div>
+      </div>
+      <div class="status">
+        <div class="chip" id="status-connection">Disconnected</div>
+        <div class="chip" id="status-model">Model: --</div>
+        <div class="chip" id="status-region">Region: --</div>
+      </div>
+    </header>
+
+    <aside class="sidebar">
+      <div class="section-title">Assistant</div>
+      <button class="nav-item active">Live Console</button>
+      <button class="nav-item prompt-pill" data-prompt="帮我查询今天北京的天气">北京天气</button>
+      <button class="nav-item prompt-pill" data-prompt="给我三条 AI 相关新闻">AI 新闻</button>
+      <button class="nav-item prompt-pill" data-prompt="帮我找一下原神芙宁娜配队攻略">游戏攻略</button>
+
+      <div class="section-title space-top">Realtime Controls</div>
+      <button id="connect-btn" class="action-btn primary">连接 Realtime</button>
+      <button id="disconnect-btn" class="action-btn secondary">断开</button>
+      <button id="mic-btn" class="action-btn tertiary">开始语音</button>
+      <p class="sidebar-help">语音模式会请求麦克风权限，并通过 WebRTC 直接连接 Azure GPT Realtime 2.0。</p>
+    </aside>
+
+    <main class="main">
+      <section class="hero">
+        <h1>Voice_Agent_Realtime</h1>
+        <p>真实接入 Azure OpenAI GPT Realtime 2.0，支持语音和文本交互，并通过后端工具查询天气、新闻和游戏攻略。</p>
+      </section>
+
+      <section class="transcript-panel">
+        <div class="panel-title">Conversation</div>
+        <div id="messages" class="messages"></div>
+      </section>
+    </main>
+
+    <aside class="rightbar">
+      <div class="section-title">Tool Results</div>
+      <div id="cards" class="cards"></div>
+      <div class="section-title space-top">Realtime Events</div>
+      <pre id="event-log" class="event-log"></pre>
+    </aside>
+
+    <footer class="composer">
+      <div class="wave" id="wave"></div>
+      <input id="text-input" class="input" placeholder="输入问题，例如：帮我查今天上海天气并播报三条科技新闻" />
+      <button id="send-btn" class="send">发送</button>
+    </footer>
+  </div>
+
+  <template id="message-template">
+    <div class="msg">
+      <div class="msg-role"></div>
+      <div class="msg-body"></div>
+    </div>
+  </template>
+
+  <template id="card-template">
+    <div class="card">
+      <h3 class="card-title"></h3>
+      <div class="meta"></div>
+      <div class="card-body"></div>
+    </div>
+  </template>
+
+  <script type="module" src="/app.js"></script>
+</body>
+</html>
